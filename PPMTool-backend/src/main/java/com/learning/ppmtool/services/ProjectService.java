@@ -23,12 +23,20 @@ public class ProjectService {
     public Project finProjectByIdentifier(String projectId){
         Project project= projectRepository.findByProjectIdentifier(projectId.toUpperCase());
         if (project == null){
-            throw new ProjectIdExeption("Project Id '"+ projectId.toUpperCase() +"' doesn't exists");
+            throw new ProjectIdExeption("Project Id '"+ projectId.toUpperCase() +"' doesn't exist");
         }
         return project;
     }
 
     public Iterable<Project> findAllProjects(){
         return projectRepository.findAll();
+    }
+
+    public void deleteProjectByIdentifier(String projectId){
+        Project project= projectRepository.findByProjectIdentifier(projectId.toUpperCase());
+        if (project == null){
+            throw new ProjectIdExeption("canoot delete Project with ID '"+projectId.toUpperCase()+"'. this project doesn't exist");
+        }
+        projectRepository.delete(project);
     }
 }
