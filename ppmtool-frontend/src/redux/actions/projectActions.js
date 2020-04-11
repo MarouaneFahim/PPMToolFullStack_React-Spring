@@ -8,7 +8,7 @@ export const creatProject = (project, history) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: GET_ERRORS,
-      payload: err.resonse.data,
+      payload: err.response.data,
     });
   }
 };
