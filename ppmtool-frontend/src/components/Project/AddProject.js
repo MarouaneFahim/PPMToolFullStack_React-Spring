@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { creatProject } from "../../redux/actions/projectActions";
 
 class AddProject extends Component {
   constructor() {
@@ -27,7 +30,7 @@ class AddProject extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    console.log(this.state.project);
+    this.props.creatProject(this.state.project, this.props.history);
   }
 
   render() {
@@ -93,6 +96,7 @@ class AddProject extends Component {
 
                 <input
                   type="submit"
+                  value="Submit"
                   className="btn btn-primary btn-block mt-4"
                 />
               </form>
@@ -104,4 +108,8 @@ class AddProject extends Component {
   }
 }
 
-export default AddProject;
+AddProject.propTypes = {
+  creatProject: PropTypes.func.isRequired,
+};
+
+export default connect(null, { creatProject })(AddProject);
