@@ -1,5 +1,6 @@
 package com.learning.ppmtool.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,9 +22,13 @@ public class ProjectTask {
     private String status;
     private Integer priority;
     private Date dueDate;
-
     @Column(updatable = false)
     private String projectIdentifier;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "backlog_id", updatable = false, nullable = false)
+    @JsonIgnore
+    private Backlog backlog;
 
     private Date created_At;
     private Date updated_At;
