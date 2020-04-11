@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { creatProject } from "../../redux/actions/projectActions";
+import { getProject, creatProject } from "../../redux/actions/projectActions";
 import classnames from "classnames";
 
-class AddProject extends Component {
+class UpdateProject extends Component {
   constructor() {
     super();
 
@@ -13,6 +13,7 @@ class AddProject extends Component {
 
     this.state = {
       project: {
+        id: "",
         projectName: "",
         projectIdentifier: "",
         description: "",
@@ -39,6 +40,12 @@ class AddProject extends Component {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
+    this.setState({ project: nextProps.project });
+  }
+
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    this.props.getProject(id, this.props.history);
   }
 
   render() {
@@ -71,19 +78,12 @@ class AddProject extends Component {
                 <div className="form-group">
                   <input
                     type="text"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.projectIdentifier,
-                    })}
+                    className="form-control form-control-lg"
                     placeholder="Unique Project ID"
                     name="projectIdentifier"
                     value={this.state.project.projectIdentifier}
-                    onChange={this.onChange}
+                    disabled
                   />
-                  {errors.projectIdentifier && (
-                    <div className="invalid-feedback">
-                      {errors.projectIdentifier}
-                    </div>
-                  )}
                 </div>
                 <div className="form-group">
                   <textarea
@@ -134,13 +134,18 @@ class AddProject extends Component {
   }
 }
 
-AddProject.propTypes = {
+UpdateProject.propTypes = {
+  getProject: PropTypes.func.isRequired,
   creatProject: PropTypes.func.isRequired,
+  project: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  project: state.project.project,
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, { creatProject })(AddProject);
+export default connect(mapStateToProps, { getProject, creatProject })(
+  UpdateProject
+);
