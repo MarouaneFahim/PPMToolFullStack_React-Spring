@@ -1,5 +1,6 @@
 package com.learning.ppmtool.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ public class ProjectTask {
     private String acceptanceCriteria;
     private String status;
     private Integer priority;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dueDate;
     @Column(updatable = false)
     private String projectIdentifier;
@@ -30,7 +32,10 @@ public class ProjectTask {
     @JsonIgnore
     private Backlog backlog;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(updatable = false)
     private Date created_At;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updated_At;
 
     @PrePersist
