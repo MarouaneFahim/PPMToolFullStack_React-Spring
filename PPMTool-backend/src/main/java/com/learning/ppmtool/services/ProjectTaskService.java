@@ -16,13 +16,14 @@ public class ProjectTaskService {
     private ProjectTaskRepository projectTaskRepository;
 
     public ProjectTask addProjectTask(String projectIdentifier, ProjectTask projectTask){
-        Backlog backlog= backlogRepository.findByProjectIdentifier(projectIdentifier.toUpperCase());
+        Backlog backlog= backlogRepository.findByProjectIdentifier(projectIdentifier);
         Integer BacklogSequence= backlog.getPTSequence();
         BacklogSequence += 1;
         backlog.setPTSequence(BacklogSequence);
 
         projectTask.setBacklog(backlog);
-        projectTask.setProjectSequence(projectIdentifier.toUpperCase()+"-"+BacklogSequence);
+        projectTask.setProjectIdentifier(projectIdentifier);
+        projectTask.setProjectSequence(projectIdentifier+"-"+BacklogSequence);
 
         if (projectTask.getPriority()== null){
             projectTask.setPriority(3);
@@ -33,5 +34,8 @@ public class ProjectTaskService {
         return projectTaskRepository.save(projectTask);
     }
 
+    public Iterable<ProjectTask> findBacklogById(String id){
+        return projectTaskRepository.findByProjectIdentifierOrderByPriority(id);
+    }
 
 }

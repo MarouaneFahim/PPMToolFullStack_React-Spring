@@ -27,7 +27,12 @@ public class BacklogController {
         ResponseEntity<?> errorMap= validationService.MapValidation(result);
         if (errorMap != null) return errorMap;
 
-        ProjectTask projectTask1= projectTaskService.addProjectTask(backlog_id, projectTask);
+        ProjectTask projectTask1= projectTaskService.addProjectTask(backlog_id.toUpperCase(), projectTask);
         return new ResponseEntity<>(projectTask1, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{backlog_id}")
+    public ResponseEntity<?> getBacklogById(@PathVariable String backlog_id){
+        return new ResponseEntity<>(projectTaskService.findBacklogById(backlog_id.toUpperCase()), HttpStatus.OK);
     }
 }
