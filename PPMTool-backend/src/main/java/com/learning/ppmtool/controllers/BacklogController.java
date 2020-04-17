@@ -52,4 +52,10 @@ public class BacklogController {
                                                             backlog_id.toUpperCase(), pt_sq.toUpperCase()),
                                     HttpStatus.OK);
     }
+
+    @DeleteMapping("/{backlog_id}/{pt_sq}")
+    public ResponseEntity<?> deleteProjectTask(@PathVariable String backlog_id, @PathVariable String pt_sq){
+        projectTaskService.deleteProjectTask(backlog_id.toUpperCase(), pt_sq.toUpperCase());
+        return new ResponseEntity<>("Project Task '"+pt_sq.toUpperCase()+"' was deleted successfully", HttpStatus.OK);
+    }
 }
