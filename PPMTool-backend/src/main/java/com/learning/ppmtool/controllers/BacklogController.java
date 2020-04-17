@@ -41,4 +41,15 @@ public class BacklogController {
         return new ResponseEntity<>(projectTaskService.findByPTSequence(backlog_id.toUpperCase(), pt_sq.toUpperCase()),
                                     HttpStatus.OK);
     }
+
+    @PatchMapping("/{backlog_id}/{pt_sq}")
+    public ResponseEntity<?> updateProjectTask(@Valid @RequestBody ProjectTask projectTask, BindingResult result,
+                                               @PathVariable String backlog_id, @PathVariable String pt_sq){
+        ResponseEntity<?> errorMap= validationService.MapValidation(result);
+        if (errorMap != null) return errorMap;
+
+        return new ResponseEntity<>(projectTaskService.updateProjectTask(projectTask,
+                                                            backlog_id.toUpperCase(), pt_sq.toUpperCase()),
+                                    HttpStatus.OK);
+    }
 }
