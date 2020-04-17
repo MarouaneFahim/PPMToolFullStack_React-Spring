@@ -35,4 +35,10 @@ public class BacklogController {
     public ResponseEntity<?> getBacklogById(@PathVariable String backlog_id){
         return new ResponseEntity<>(projectTaskService.findBacklogById(backlog_id.toUpperCase()), HttpStatus.OK);
     }
+
+    @GetMapping("/{backlog_id}/{pt_sq}")
+    public ResponseEntity<?> getProjectTaskByPTSequence(@PathVariable String backlog_id, @PathVariable String pt_sq){
+        return new ResponseEntity<>(projectTaskService.findByPTSequence(backlog_id.toUpperCase(), pt_sq.toUpperCase()),
+                                    HttpStatus.OK);
+    }
 }
