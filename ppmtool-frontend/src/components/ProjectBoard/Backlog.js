@@ -9,17 +9,17 @@ class Backlog extends Component {
       <ProjectTaskItem key={project_task.id} project_task={project_task} />
     ));
 
-    let toDoItems = [];
-    let inProgressItems = [];
-    let doneItems = [];
+    let toDoTasks = [];
+    let inProgressTasks = [];
+    let doneTasks = [];
 
     for (let i = 0; i < tasks.length; i++) {
       if (tasks[i].props.project_task.status === "TO_DO") {
-        toDoItems.push(tasks[i]);
+        toDoTasks.push(tasks[i]);
       } else if (tasks[i].props.project_task.status === "IN_PROGRESS") {
-        inProgressItems.push(tasks[i]);
+        inProgressTasks.push(tasks[i]);
       } else {
-        doneItems.push(tasks[i]);
+        doneTasks.push(tasks[i]);
       }
     }
 
@@ -32,7 +32,7 @@ class Backlog extends Component {
                 <h3>TO DO</h3>
               </div>
             </div>
-            {toDoItems}
+            {toDoTasks}
           </div>
           <div className="col-md-4">
             <div className="card text-center mb-2">
@@ -40,7 +40,7 @@ class Backlog extends Component {
                 <h3>In Progress</h3>
               </div>
             </div>
-            {inProgressItems}
+            {inProgressTasks}
           </div>
           <div className="col-md-4">
             <div className="card text-center mb-2">
@@ -48,7 +48,7 @@ class Backlog extends Component {
                 <h3>Done</h3>
               </div>
             </div>
-            {doneItems}
+            {doneTasks}
           </div>
         </div>
       </div>
