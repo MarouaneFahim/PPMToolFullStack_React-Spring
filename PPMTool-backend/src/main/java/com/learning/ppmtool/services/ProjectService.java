@@ -36,9 +36,9 @@ public class ProjectService {
     }
 
     public Project finProjectByIdentifier(String projectId){
-        Project project= projectRepository.findByProjectIdentifier(projectId.toUpperCase());
+        Project project= projectRepository.findByProjectIdentifier(projectId);
         if (project == null){
-            throw new ProjectIdExeption("Project Id '"+ projectId.toUpperCase() +"' doesn't exist");
+            throw new ProjectIdExeption("Project Id '"+ projectId +"' doesn't exist");
         }
         return project;
     }
@@ -48,9 +48,9 @@ public class ProjectService {
     }
 
     public void deleteProjectByIdentifier(String projectId){
-        Project project= projectRepository.findByProjectIdentifier(projectId.toUpperCase());
+        Project project= projectRepository.findByProjectIdentifier(projectId);
         if (project == null){
-            throw new ProjectIdExeption("canoot delete Project with ID '"+projectId.toUpperCase()+"'. this project doesn't exist");
+            throw new ProjectIdExeption("canoot delete Project with ID '"+projectId+"'. this project doesn't exist");
         }
         projectRepository.delete(project);
     }

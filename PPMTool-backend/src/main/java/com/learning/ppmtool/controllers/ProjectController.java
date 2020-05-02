@@ -27,12 +27,12 @@ public class ProjectController {
         if (errorMap != null) return errorMap;
 
         Project p= projectService.saveOrUpdateProject(project);
-        return new ResponseEntity<Project>(p , HttpStatus.CREATED);
+        return new ResponseEntity<>(p , HttpStatus.CREATED);
     }
 
     @GetMapping("/{projectId}")
     public ResponseEntity<?> getProjectById(@PathVariable String projectId){
-        Project project= projectService.finProjectByIdentifier(projectId);
+        Project project= projectService.finProjectByIdentifier(projectId.toUpperCase());
         return new ResponseEntity<>(project , HttpStatus.OK);
     }
 
@@ -43,7 +43,7 @@ public class ProjectController {
 
     @DeleteMapping("/{projectId}")
     public ResponseEntity<?> deleteProjectById(@PathVariable String projectId){
-        projectService.deleteProjectByIdentifier(projectId);
+        projectService.deleteProjectByIdentifier(projectId.toUpperCase());
         return new ResponseEntity<>("Project with ID '"+projectId.toUpperCase()+"' was deleted" , HttpStatus.OK);
     }
 }
